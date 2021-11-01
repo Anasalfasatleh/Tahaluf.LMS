@@ -7,6 +7,6 @@ namespace Tahaluf.LMS.Core.Common
 {
     public class IDbContext 
     {
-        DbConnection Connection { get; }
+       public DbConnection Connection { get; }
     }
 }

@@ -11,7 +11,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tahaluf.LMS.Core.Common;
+using Tahaluf.LMS.Core.Repository;
 using Tahaluf.LMS.Infra.Common;
+using Tahaluf.LMS.Infra.Repository;
 
 namespace Tahaluf.LMS.API
 {
@@ -29,6 +31,7 @@ namespace Tahaluf.LMS.API
         {
             services.AddControllers();
             services.AddScoped<IDbContext, DbContext>();
+            services.AddScoped<ICourseRepository, CourseRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
