@@ -5,11 +5,8 @@ using Tahaluf.LMS.Models;
 
 namespace Tahaluf.LMS.Core.Repository
 {
-    public interface ICourseRepository
+    public interface ICourseRepository : ICRUDRepository<Course>
     {
-        bool CreateCourse(Course course);
-        bool DeleteCourse(int id);
-        List<Course> GetAllCourses();
-        bool UpdateCourse(Course course);
+
     }
 }
