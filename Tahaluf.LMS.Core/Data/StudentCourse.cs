@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
-namespace Tahaluf.LMS.Models
+namespace Tahaluf.LMS.Data
 {
     public class StudentCourse
     {

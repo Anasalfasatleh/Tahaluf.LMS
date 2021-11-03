@@ -9,9 +9,9 @@ namespace Tahaluf.LMS.Core.Repository
 
         bool Update(T t);
 
-        bool Delete(int id);
+        bool Delete(T t);
 
-        T GetById(int id);
+        T GetById(T t);
 
         IEnumerable<T> GetAll();
 

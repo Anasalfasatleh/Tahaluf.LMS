@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 
-namespace Tahaluf.LMS.Models
+namespace Tahaluf.LMS.Data
 {
     public class Student
     {

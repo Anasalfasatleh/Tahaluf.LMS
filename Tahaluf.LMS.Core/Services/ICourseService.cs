@@ -1,12 +1,19 @@
-﻿using System;
+﻿
+
 using System.Collections.Generic;
-using System.Text;
 using Tahaluf.LMS.Data;
 
-namespace Tahaluf.LMS.Core.Repository
+namespace Tahaluf.LMS.Core.Services
 {
-    public interface ICourseRepository : ICRUDRepository<Course>
+    public interface ICourseService
     {
+        bool Create(Course course);
+
+        bool Update(Course course);
+
+        bool Delete(Course course);
+
+        IEnumerable<Course> GetAll();
         Course GetById(Course course);
         IEnumerable<Course> GetCheapestCourse();
         Course GetCourseByEndDate(Course course);
