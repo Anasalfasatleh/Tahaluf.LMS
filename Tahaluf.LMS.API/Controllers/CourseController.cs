@@ -60,12 +60,28 @@ namespace Tahaluf.LMS.API.Controllers
         [Route("GetCourseByName")]
         [ProducesResponseType(type: typeof(Course), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        
         public Course GetCourseByName(Course course)
         {
             return _courseService.GetCourseByName(course); 
         }
 
+        [HttpPost]
+        [Route("GetCourseByPrice")]
+        [ProducesResponseType(type: typeof(Course), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IEnumerable<Course> GetCourseByPrice(Course course)
+        {
+            return _courseService.GetCourseByPrice(course);
+        }
+
+        [HttpGet]
+        [Route("GetCheapestCourse")]
+        [ProducesResponseType(type: typeof(IEnumerable<Course>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IEnumerable<Course> GetCheapestCourse()
+        {
+            return _courseService.GetCheapestCourse();
+        }
 
 
     }

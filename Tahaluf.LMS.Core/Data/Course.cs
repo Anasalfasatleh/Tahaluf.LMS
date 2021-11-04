@@ -8,11 +8,8 @@ namespace Tahaluf.LMS.Data
 {
     public class Course
     {
-        [Key]
         public int CourseId { get; set; }
-        [Required]
         public string CourseName { get; set; }
-        [Required]
         public double Price { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
@@ -20,5 +17,7 @@ namespace Tahaluf.LMS.Data
         public  ICollection<StudentCourse> StudentCourses { get; set; }
         public  ICollection<TeacherCourse> TeacherCourses { get; set; }
     }
+
+   
 
 }
