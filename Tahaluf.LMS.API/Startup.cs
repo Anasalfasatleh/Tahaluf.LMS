@@ -44,6 +44,7 @@ namespace Tahaluf.LMS.API
             services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddScoped<IStudentCourseRepository, StudentCourseRepository>();
             services.AddScoped<ITeacherCourseRepository, TeacherCourseRepository>();
+
             //Services
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<ITeacherServices, TeacherServices>();

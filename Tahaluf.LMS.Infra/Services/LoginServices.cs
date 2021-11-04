@@ -20,9 +20,9 @@ namespace Tahaluf.LMS.Infra.Services
             return _courseRepository.Create(login);
         }
 
-        public bool Delete(Login login)
+        public bool Delete(int id)
         {
-            return _courseRepository.Delete(login);
+            return _courseRepository.Delete( id);
 
         }
 
@@ -32,9 +32,9 @@ namespace Tahaluf.LMS.Infra.Services
 
         }
 
-        public Login GetById(Login login)
+        public Login GetById(int id)
         {
-            return _courseRepository.GetById(login);
+            return _courseRepository.GetById( id);
 
         }
 

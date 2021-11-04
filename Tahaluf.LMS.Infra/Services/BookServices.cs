@@ -18,9 +18,9 @@ namespace Tahaluf.LMS.Infra.Services
             return _bookRepository.Create(book); ;
         }
 
-        public bool Delete(Book book)
+        public bool Delete(int id)
         {
-            return _bookRepository.Delete(book);
+            return _bookRepository.Delete(id);
 
         }
 
@@ -30,9 +30,9 @@ namespace Tahaluf.LMS.Infra.Services
 
         }
 
-        public Book GetById(Book book)
+        public Book GetById(int id)
         {
-            return _bookRepository.GetById(book);
+            return _bookRepository.GetById(id);
 
         }
 

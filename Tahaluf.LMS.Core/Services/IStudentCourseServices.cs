@@ -11,9 +11,9 @@ namespace Tahaluf.LMS.Core.Services
 
         bool Update(StudentCourse studentCourse);
 
-        bool Delete(StudentCourse studentCourse);
+        bool Delete(int id);
 
-        StudentCourse GetById(StudentCourse studentCourse);
+        StudentCourse GetById(int id);
 
         IEnumerable<StudentCourse> GetAll();
     }

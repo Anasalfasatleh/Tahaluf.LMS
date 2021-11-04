@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Tahaluf.LMS.Core.Common
 {
-    public class IDbContext 
+    public interface IDbContext 
     {
-       public DbConnection Connection { get; }
+        DbConnection Connection { get; }
     }
 }

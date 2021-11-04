@@ -19,9 +19,9 @@ namespace Tahaluf.LMS.Infra.Services
             return _teacherCourse.Create(teacherCourse);
         }
 
-        public bool Delete(TeacherCourse teacherCourse)
+        public bool Delete(int id)
         {
-            return _teacherCourse.Delete(teacherCourse);
+            return _teacherCourse.Delete(id);
         }
 
         public IEnumerable<TeacherCourse> GetAll()
@@ -29,9 +29,9 @@ namespace Tahaluf.LMS.Infra.Services
             return _teacherCourse.GetAll();
         }
 
-        public TeacherCourse GetById(TeacherCourse teacherCourse)
+        public TeacherCourse GetById(int id)
         {
-            return _teacherCourse.GetById(teacherCourse);
+            return _teacherCourse.GetById(id);
         }
 
         public bool Update(TeacherCourse teacherCourse)

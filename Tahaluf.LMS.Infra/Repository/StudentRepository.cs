@@ -37,10 +37,10 @@ namespace Tahaluf.LMS.Infra.Repository
 
         }
 
-        public bool Delete(Student student)
+        public bool Delete(int id)
         {
             var p = new DynamicParameters();
-            p.Add("@StudentId", student.StudentId, dbType: DbType.Int32, ParameterDirection.Input);
+            p.Add("@StudentId", id, dbType: DbType.Int32, ParameterDirection.Input);
             var result = _dbContext.Connection.Execute("StudentDelete", p, commandType: CommandType.StoredProcedure);
             if (result == 1)
             {
@@ -58,10 +58,10 @@ namespace Tahaluf.LMS.Infra.Repository
             return result;
         }
 
-        public Student GetById(Student student)
+        public Student GetById(int id)
         {
             var p = new DynamicParameters();
-            p.Add("@StudentId", student.StudentId, DbType.Int32, ParameterDirection.Input);
+            p.Add("@StudentId", id, DbType.Int32, ParameterDirection.Input);
             var result = _dbContext.Connection.QueryFirstOrDefault<Student>("StudentSelect", p, commandType: CommandType.StoredProcedure);
             return result;
         }

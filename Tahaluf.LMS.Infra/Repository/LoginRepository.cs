@@ -35,10 +35,10 @@ namespace Tahaluf.LMS.Infra.Repository
 
         }
 
-        public bool Delete(Login login)
+        public bool Delete(int id )
         {
             var p = new DynamicParameters();
-            p.Add("@LoginId", login.LoginId, dbType: DbType.Int32, ParameterDirection.Input);
+            p.Add("@LoginId", id, dbType: DbType.Int32, ParameterDirection.Input);
             var result = _dbContext.Connection.Execute("LoginDelete", p, commandType: CommandType.StoredProcedure);
             if (result == 1)
             {
@@ -56,10 +56,10 @@ namespace Tahaluf.LMS.Infra.Repository
             return result;
         }
 
-        public Login GetById(Login login)
+        public Login GetById(int id)
         {
             var p = new DynamicParameters();
-            p.Add("@LoginId", login.LoginId, DbType.Int32, ParameterDirection.Input);
+            p.Add("@LoginId", id, DbType.Int32, ParameterDirection.Input);
             var result = _dbContext.Connection.QueryFirstOrDefault<Login>("LoginSelect", p, commandType: CommandType.StoredProcedure);
             return result;
         }

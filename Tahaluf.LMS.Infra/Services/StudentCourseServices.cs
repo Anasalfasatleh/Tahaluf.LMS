@@ -21,9 +21,9 @@ namespace Tahaluf.LMS.Infra.Services
             return _studentCourse.Create(studentCourse);
         }
 
-        public bool Delete(StudentCourse studentCourse)
+        public bool Delete(int id)
         {
-            return _studentCourse.Delete(studentCourse);
+            return _studentCourse.Delete( id);
 
         }
 
@@ -33,9 +33,9 @@ namespace Tahaluf.LMS.Infra.Services
 
         }
 
-        public StudentCourse GetById(StudentCourse studentCourse)
+        public StudentCourse GetById(int id)
         {
-            return _studentCourse.GetById(studentCourse);
+            return _studentCourse.GetById( id);
 
         }
 

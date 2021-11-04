@@ -9,9 +9,9 @@ namespace Tahaluf.LMS.Core.Services
 
         bool Update(Teacher teacher);
 
-        bool Delete(Teacher teacher);
+        bool Delete(int id);
 
-        Teacher GetById(Teacher teacher);
+        Teacher GetById(int id);
 
         IEnumerable<Teacher> GetAll();
 

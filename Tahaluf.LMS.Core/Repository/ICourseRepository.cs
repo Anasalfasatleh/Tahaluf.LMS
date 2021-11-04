@@ -7,12 +7,12 @@ namespace Tahaluf.LMS.Core.Repository
 {
     public interface ICourseRepository : ICRUDRepository<Course>
     {
-        Course GetById(Course course);
+        
         IEnumerable<Course> GetCheapestCourse();
-        Course GetCourseByEndDate(Course course);
+        IEnumerable<Course> GetCourseByEndDate(Course course);
         Course GetCourseByName(Course course);
-        Course GetCourseByPrice(Course course);
-        Course GetCourseByStartDate(Course course);
-        IEnumerable<Course> SearchCouresByName(string name);
+        IEnumerable<Course> GetCourseByPrice(Course course);
+        IEnumerable<Course>  GetCourseByStartDate(Course course);
+        IEnumerable<Course> SearchCouresByName(Course course);
     }
 }

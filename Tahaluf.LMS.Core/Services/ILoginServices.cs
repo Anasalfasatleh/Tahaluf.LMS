@@ -11,9 +11,9 @@ namespace Tahaluf.LMS.Core.Services
 
         bool Update(Login login);
 
-        bool Delete(Login login);
+        bool Delete(int id);
 
-        Login  GetById(Login login);
+        Login  GetById(int id);
 
         IEnumerable<Login> GetAll();
     }

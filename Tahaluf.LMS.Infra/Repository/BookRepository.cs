@@ -39,10 +39,10 @@ namespace Tahaluf.LMS.Infra.Repository
             }
         }
 
-        public bool Delete(Book book)
+        public bool Delete(int id)
         {
             var p = new DynamicParameters();
-            p.Add("@BookId", book.BookId, dbType: DbType.Int32, ParameterDirection.Input);
+            p.Add("@BookId", id, dbType: DbType.Int32, ParameterDirection.Input);
             var result = _dbContext.Connection.Execute("BookDelete", p, commandType: CommandType.StoredProcedure);
             if (result == 1)
             {
@@ -60,10 +60,10 @@ namespace Tahaluf.LMS.Infra.Repository
             return result;
         }
 
-        public Book GetById(Book book)
+        public Book GetById(int id)
         {
             var p = new DynamicParameters();
-            p.Add("@BookId", book.BookId, DbType.Int32, ParameterDirection.Input);
+            p.Add("@BookId",id, DbType.Int32, ParameterDirection.Input);
             var result = _dbContext.Connection.QueryFirstOrDefault<Book>("BookSelect", p, commandType: CommandType.StoredProcedure);
             return result;
         }

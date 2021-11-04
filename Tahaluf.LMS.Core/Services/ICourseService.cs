@@ -11,15 +11,15 @@ namespace Tahaluf.LMS.Core.Services
 
         bool Update(Course course);
 
-        bool Delete(Course course);
+        bool Delete(int  id);
 
         IEnumerable<Course> GetAll();
-        Course GetById(Course course);
+        Course GetById(int id);
         IEnumerable<Course> GetCheapestCourse();
-        Course GetCourseByEndDate(Course course);
+        IEnumerable<Course> GetCourseByEndDate(Course course);
         Course GetCourseByName(Course course);
-        Course GetCourseByPrice(Course course);
-        Course GetCourseByStartDate(Course course);
-        IEnumerable<Course> SearchCouresByName(string name);
+        IEnumerable<Course> GetCourseByPrice(Course course);
+        IEnumerable<Course> GetCourseByStartDate(Course course);
+        IEnumerable<Course> SearchCouresByName(Course course);
     }
 }

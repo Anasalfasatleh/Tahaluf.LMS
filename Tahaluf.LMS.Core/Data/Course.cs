@@ -20,4 +20,5 @@ namespace Tahaluf.LMS.Data
         public  ICollection<StudentCourse> StudentCourses { get; set; }
         public  ICollection<TeacherCourse> TeacherCourses { get; set; }
     }
+
 }

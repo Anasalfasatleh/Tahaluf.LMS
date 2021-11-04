@@ -37,10 +37,10 @@ namespace Tahaluf.LMS.Infra.Repository
 
         }
 
-        public bool Delete(StudentCourse studentCourse)
+        public bool Delete(int id)
         {
             var p = new DynamicParameters();
-            p.Add("@StudentCourseId", studentCourse.StudentCourseId, dbType: DbType.Int32, ParameterDirection.Input);
+            p.Add("@StudentCourseId", id, dbType: DbType.Int32, ParameterDirection.Input);
             var result = _dbContext.Connection.Execute("StudentCourseDelete", p, commandType: CommandType.StoredProcedure);
             if (result == 1)
             {
@@ -58,10 +58,10 @@ namespace Tahaluf.LMS.Infra.Repository
             return result;
         }
 
-        public StudentCourse GetById(StudentCourse studentCourse)
+        public StudentCourse GetById(int id)
         {
             var p = new DynamicParameters();
-            p.Add("@StudentCourseId", studentCourse.StudentCourseId, DbType.Int32, ParameterDirection.Input);
+            p.Add("@StudentCourseId", id, DbType.Int32, ParameterDirection.Input);
             var result = _dbContext.Connection.QueryFirstOrDefault<StudentCourse>("StudentCourseSelect", p, commandType: CommandType.StoredProcedure);
             return result;
         }

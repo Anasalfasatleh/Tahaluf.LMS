@@ -22,8 +22,8 @@ namespace Tahaluf.LMS.Infra.Common
             {
                 if (_connection == null)
                 {
-                    _connection = new SqlConnection(_configuration["ConnectionString:DBConnectionString"]);
-                    _connection.Open();
+                    _connection = new SqlConnection(@"Data Source=ANAS-ALFASATLEH\MSSQLSERVER01;Initial Catalog=LMS;Integrated Security=True;Trusted_Connection=True;");
+                    _connection.Open(); 
                 }
                 else if (_connection.State != ConnectionState.Open)
                 {

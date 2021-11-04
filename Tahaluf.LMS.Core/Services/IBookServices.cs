@@ -11,9 +11,9 @@ namespace Tahaluf.LMS.Core.Services
 
         bool Update(Book book);
 
-        bool Delete(Book book);
+        bool Delete(int id);
 
-        Book GetById(Book book);
+        Book GetById(int id);
 
         IEnumerable<Book> GetAll();
     }

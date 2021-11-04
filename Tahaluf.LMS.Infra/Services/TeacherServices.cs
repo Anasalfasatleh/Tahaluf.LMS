@@ -18,9 +18,9 @@ namespace Tahaluf.LMS.Infra.Services
             return _teacherRepository.Create(teacher);
         }
 
-        public bool Delete(Teacher teacher)
+        public bool Delete(int id)
         {
-            return _teacherRepository.Delete(teacher);
+            return _teacherRepository.Delete(id);
 
         }
 
@@ -36,9 +36,9 @@ namespace Tahaluf.LMS.Infra.Services
 
         }
 
-        public Teacher GetById(Teacher teacher)
+        public Teacher GetById(int id)
         {
-            return _teacherRepository.GetById(teacher);
+            return _teacherRepository.GetById(id);
 
         }
 

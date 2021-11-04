@@ -57,10 +57,10 @@ namespace Tahaluf.LMS.Infra.Repository
             }
         }
 
-        public bool Delete(Teacher teacher)
+        public bool Delete(int id)
         {
             var p = new DynamicParameters();
-            p.Add("@TeacherId", teacher.TeacherId, dbType: DbType.Int32, ParameterDirection.Input);
+            p.Add("@TeacherId", id, dbType: DbType.Int32, ParameterDirection.Input);
             var result = _dbContext.Connection.ExecuteAsync("TeacherDelete", p, commandType: CommandType.StoredProcedure);
             if (result.Result == 1)
             {
@@ -72,10 +72,10 @@ namespace Tahaluf.LMS.Infra.Repository
             }
         }
 
-        public Teacher GetById(Teacher teacher)
+        public Teacher GetById(int id)
         {
             var p = new DynamicParameters();
-            p.Add("@TeacherId", teacher.TeacherId, DbType.Int32, ParameterDirection.Input);
+            p.Add("@TeacherId", id, DbType.Int32, ParameterDirection.Input);
             var result = _dbContext.Connection.QueryFirstOrDefault<Teacher>("TeacherSelect", p, commandType: CommandType.StoredProcedure);
             return result;
         }

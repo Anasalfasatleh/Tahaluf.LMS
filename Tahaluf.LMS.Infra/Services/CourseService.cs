@@ -22,9 +22,9 @@ namespace Tahaluf.LMS.Infra.Services
             return _courseRepository.Create(course);
         }
 
-        public bool Delete(Course course)
+        public bool Delete(int id)
         {
-            return _courseRepository.Delete(course); 
+            return _courseRepository.Delete(id); 
         }
 
         public IEnumerable<Course> GetAll()
@@ -32,9 +32,9 @@ namespace Tahaluf.LMS.Infra.Services
             return _courseRepository.GetAll();
         }
 
-        public Course GetById(Course course)
+        public Course GetById(int id)
         {
-            return _courseRepository.GetById(course);
+            return _courseRepository.GetById(id);
         }
 
         public IEnumerable<Course> GetCheapestCourse()
@@ -42,7 +42,7 @@ namespace Tahaluf.LMS.Infra.Services
             return _courseRepository.GetCheapestCourse();
         }
 
-        public Course GetCourseByEndDate(Course course)
+        public IEnumerable<Course> GetCourseByEndDate(Course course)
         {
             return _courseRepository.GetCourseByEndDate(course);
         }
@@ -52,19 +52,19 @@ namespace Tahaluf.LMS.Infra.Services
             return _courseRepository.GetCourseByName(course);
         }
 
-        public Course GetCourseByPrice(Course course)
+        public IEnumerable<Course> GetCourseByPrice(Course course)
         {
             return _courseRepository.GetCourseByPrice(course);
         }
 
-        public Course GetCourseByStartDate(Course course)
+        public IEnumerable<Course> GetCourseByStartDate(Course course)
         {
             return _courseRepository.GetCourseByStartDate(course);
         }
 
-        public IEnumerable<Course> SearchCouresByName(string name)
+        public IEnumerable<Course> SearchCouresByName(Course course)
         {
-            return _courseRepository.SearchCouresByName(name);
+            return _courseRepository.SearchCouresByName( course);
 
         }
 
