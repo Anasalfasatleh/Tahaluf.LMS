@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 using Tahaluf.LMS.Core.Common;
+using Tahaluf.LMS.Core.DTO;
 using Tahaluf.LMS.Core.Repository;
 using Tahaluf.LMS.Data;
 
@@ -86,6 +88,18 @@ namespace Tahaluf.LMS.Infra.Repository
             {
                 return false;
             }
+        }
+
+        public IEnumerable<Book> Search(BookDTO bookDTO)
+        {
+            var p = new DynamicParameters();
+            p.Add("@CourseName", bookDTO.CourseName , dbType: DbType.Int32 , ParameterDirection.Input);
+            p.Add("@BookName"  , bookDTO.BookName   , DbType.Double        , ParameterDirection.Input);
+            p.Add("@DateFrom"  , bookDTO.DateFrom   , DbType.DateTime      , ParameterDirection.Input);
+            p.Add("@DateTo"    , bookDTO.DateTo     , DbType.DateTime      , ParameterDirection.Input);
+            var result = _dbContext.Connection.Query<Book>("SearchBook", p , commandType: CommandType.StoredProcedure);
+
+            return result.ToList();
         }
     }
 }
