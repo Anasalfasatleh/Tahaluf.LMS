@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using Tahaluf.LMS.Core.Common;
+using Tahaluf.LMS.Core.DTO;
 using Tahaluf.LMS.Core.Repository;
 using Tahaluf.LMS.Data;
 
@@ -16,6 +17,18 @@ namespace Tahaluf.LMS.Infra.Repository
         public BookRepository(IDbContext dbContext)
         {
             this._dbContext = dbContext;
+        }
+
+        public IEnumerable<Book> SearchBook(BookDTO bookDTO)
+        {
+            var p = new DynamicParameters();
+            p.Add("@BookName", bookDTO.BookName, DbType.String, ParameterDirection.Input);
+            p.Add("@CourseName", bookDTO.CourseName, DbType.String, ParameterDirection.Input);
+            p.Add("@DateFrom", bookDTO.DateFrom, DbType.Date, ParameterDirection.Input);
+            p.Add("@DateTo", bookDTO.DateTo, DbType.Date, ParameterDirection.Input);
+
+            var result = _dbContext.Connection.Query<Book>("SearchBook", p, commandType: CommandType.StoredProcedure);
+            return result;
         }
 
         public bool Create(Book book)

@@ -19,8 +19,6 @@ namespace Tahaluf.LMS.API.Controllers
             this._courseService = courseService;
         }
 
-       
-
         [HttpGet]
         [ProducesResponseType(type: typeof(List<Course>), StatusCodes.Status200OK)]
         public IEnumerable<Course> GetAllCourses()
@@ -43,7 +41,6 @@ namespace Tahaluf.LMS.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public bool Update(Course course)
         {
-            
             return _courseService.Update(course); 
         }
 
@@ -82,7 +79,5 @@ namespace Tahaluf.LMS.API.Controllers
         {
             return _courseService.GetCheapestCourse();
         }
-
-
     }
 }
