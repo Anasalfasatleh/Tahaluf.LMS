@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Tahaluf.LMS.Core.DTO;
 using Tahaluf.LMS.Core.Repository;
 using Tahaluf.LMS.Core.Services;
 using Tahaluf.LMS.Data;
@@ -12,6 +13,12 @@ namespace Tahaluf.LMS.Infra.Services
         public StudentServices(IStudentRepository studentRepository)
         {
             this._studentRepository = studentRepository;
+        }
+
+        public ResponseCalculateStudentsMarksDTO CalculateStudentsMarks()
+        {
+            return _studentRepository.CalculateStudentsMarks();
+
         }
 
         public bool Create(Student student)

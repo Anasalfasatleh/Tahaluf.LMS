@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using Tahaluf.LMS.Core.Common;
+using Tahaluf.LMS.Core.DTO;
 using Tahaluf.LMS.Core.Repository;
 using Tahaluf.LMS.Data;
 
@@ -16,13 +17,20 @@ namespace Tahaluf.LMS.Infra.Repository
         {
             this._dbContext = dbContext;
         }
+
+        public ResponseCalculateStudentsMarksDTO CalculateStudentsMarks()
+        {
+            var result = _dbContext.Connection.QueryFirstOrDefault<ResponseCalculateStudentsMarksDTO>("CalculateStudentsMarks", commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
         public bool Create(Student student)
         {
             var p = new DynamicParameters();
-            p.Add("@Fname", student.Fname, dbType: DbType.String, ParameterDirection.Input);
-            p.Add("@Lname", student.Lname, dbType: DbType.String, ParameterDirection.Input);
-            p.Add("@BirthDate", student.BirthDate, dbType: DbType.DateTime, ParameterDirection.Input);
-            p.Add("@Mark", student.Mark, dbType: DbType.Double, ParameterDirection.Input);
+            p.Add("@Fname"      , student.Fname     , dbType: DbType.String     , ParameterDirection.Input);
+            p.Add("@Lname"      , student.Lname     , dbType: DbType.String     , ParameterDirection.Input);
+            p.Add("@BirthDate"  , student.BirthDate , dbType: DbType.DateTime   , ParameterDirection.Input);
+            p.Add("@Mark"       , student.Mark      , dbType: DbType.Double     , ParameterDirection.Input);
 
             try
             {

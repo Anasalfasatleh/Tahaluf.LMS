@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tahaluf.LMS.Core.DTO;
 using Tahaluf.LMS.Core.Services;
 using Tahaluf.LMS.Data;
 
@@ -69,6 +70,14 @@ namespace Tahaluf.LMS.API.Controllers
         {
             return _studentServices.Update(student);
 
+        }
+        [HttpGet]
+        [Route("CalculateStudentsMarks")]
+        [ProducesResponseType(type: typeof(ResponseCalculateStudentsMarksDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ResponseCalculateStudentsMarksDTO CalculateStudentsMarks()
+        {
+            return _studentServices.CalculateStudentsMarks();
         }
     }
 }

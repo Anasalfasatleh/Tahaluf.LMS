@@ -62,7 +62,7 @@ namespace Tahaluf.LMS.API.Controllers
         {
             return _bookServices.GetAll();
         }
-
+        
         [HttpPost]
         [Route("SearchBook")]
         [ProducesResponseType(type: typeof(IEnumerable<ResponseBookDTO>), StatusCodes.Status200OK)]
@@ -71,6 +71,7 @@ namespace Tahaluf.LMS.API.Controllers
         {
             return _bookServices.SearchBook(bookDTO);
         }
+
 
     }
 }
