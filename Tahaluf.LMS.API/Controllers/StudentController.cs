@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tahaluf.LMS.Core.DTO;
 using Tahaluf.LMS.Core.Services;
 using Tahaluf.LMS.Data;
 
@@ -68,6 +69,16 @@ namespace Tahaluf.LMS.API.Controllers
         public bool Update(Student student)
         {
             return _studentServices.Update(student);
+
+        }
+
+        [HttpGet]
+        [Route("GetMarkDetails")]
+        [ProducesResponseType(type: typeof(MarkDetailsResponseDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public MarkDetailsResponseDTO GetMarkDetails()
+        {
+            return _studentServices.GetMarkDetails();
 
         }
     }

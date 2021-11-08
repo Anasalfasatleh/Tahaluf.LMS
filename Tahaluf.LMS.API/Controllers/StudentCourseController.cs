@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tahaluf.LMS.Core.DTO;
 using Tahaluf.LMS.Core.Services;
 using Tahaluf.LMS.Data;
 
@@ -71,5 +72,7 @@ namespace Tahaluf.LMS.API.Controllers
             return _studentCourse.Update(studentCourse);
 
         }
+
+     
     }
 }
