@@ -18,18 +18,18 @@ namespace Tahaluf.LMS.Infra.Repository
             this._dbContext = dbContext;
         }
 
-        public IEnumerable<ResponseFilterDTO> SearchBook(BookDTO bookDTO)
+        public IEnumerable<ResponseBookDTO> SearchBook(BookDTO bookDTO)
         {
             var p = new DynamicParameters();
-            p.Add("@BookName", bookDTO.BookName, DbType.String, ParameterDirection.Input);
-            p.Add("@CourseName", bookDTO.CourseName, DbType.String, ParameterDirection.Input);
-            p.Add("@DateFrom", bookDTO.DateFrom, DbType.Date, ParameterDirection.Input);
-            p.Add("@DateTo", bookDTO.DateTo, DbType.Date, ParameterDirection.Input);
+            p.Add("@BookName"   , bookDTO.BookName       , DbType.String    , ParameterDirection.Input);
+            p.Add("@CourseName" , bookDTO.CourseName     , DbType.String    , ParameterDirection.Input);
+            p.Add("@DateFrom"   , bookDTO.DateFrom       , DbType.Date      , ParameterDirection.Input);
+            p.Add("@DateTo"     , bookDTO.DateTo         , DbType.Date      , ParameterDirection.Input);
 
-            var result = _dbContext.Connection.Query<ResponseFilterDTO>("SearchBook", p, commandType: CommandType.StoredProcedure);
+            var result = _dbContext.Connection.Query<ResponseBookDTO>("SearchBook", p,
+                commandType: CommandType.StoredProcedure);
             return result;
         }
-
         public bool Create(Book book)
         {
             var p = new DynamicParameters();

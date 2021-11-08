@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Tahaluf.LMS.Core.DTO
 {
-    public class ResponseFilterDTO
+    public class ResponseBookDTO
     {
         public string CourseName { get; set; }
         public string BookName { get; set; }
