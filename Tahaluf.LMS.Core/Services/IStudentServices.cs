@@ -16,5 +16,6 @@ namespace Tahaluf.LMS.Core.Services
 
         IEnumerable<Student> GetAll();
         ResponseCalculateStudentsMarksDTO CalculateStudentsMarks();
+        IEnumerable<ResponseGetStudentCoursesDTO> GetStudentCourses();
     }
 }

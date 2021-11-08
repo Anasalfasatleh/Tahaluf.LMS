@@ -44,6 +44,11 @@ namespace Tahaluf.LMS.Infra.Services
 
         }
 
+        public IEnumerable<ResponseGetStudentCoursesDTO> GetStudentCourses()
+        {
+            return _studentRepository.GetStudentCourses();
+        }
+
         public bool Update(Student student)
         {
             return _studentRepository.Update(student);

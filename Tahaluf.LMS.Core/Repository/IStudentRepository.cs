@@ -9,6 +9,8 @@ namespace Tahaluf.LMS.Core.Repository
     public interface IStudentRepository : ICRUDRepository<Student>
     {
         ResponseCalculateStudentsMarksDTO CalculateStudentsMarks();
+        IEnumerable<ResponseGetStudentCoursesDTO> GetStudentCourses();
+
 
     }
 }

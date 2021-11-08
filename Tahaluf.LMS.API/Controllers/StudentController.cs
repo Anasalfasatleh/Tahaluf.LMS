@@ -79,5 +79,13 @@ namespace Tahaluf.LMS.API.Controllers
         {
             return _studentServices.CalculateStudentsMarks();
         }
+        [HttpGet]
+        [Route("GetStudentCourses")]
+        [ProducesResponseType(type: typeof(IEnumerable<ResponseGetStudentCoursesDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IEnumerable<ResponseGetStudentCoursesDTO> GetStudentCourses()
+        {
+            return _studentServices.GetStudentCourses();
+        }
     }
 }
