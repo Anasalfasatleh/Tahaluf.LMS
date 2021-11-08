@@ -8,6 +8,6 @@ namespace Tahaluf.LMS.Core.Repository
 {
     public interface IBookRepository : ICRUDRepository<Book>
     {
-        IEnumerable<Book> SearchBook(BookDTO bookDTO);
+        IEnumerable<ResponseFilterDTO> SearchBook(BookDTO bookDTO);
     }
 }

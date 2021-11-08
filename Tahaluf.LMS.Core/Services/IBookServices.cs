@@ -17,6 +17,6 @@ namespace Tahaluf.LMS.Core.Services
         Book GetById(int id);
 
         IEnumerable<Book> GetAll();
-        IEnumerable<Book> SearchBook(BookDTO bookDTO);
+        IEnumerable<ResponseFilterDTO> SearchBook(BookDTO bookDTO);
     }
 }

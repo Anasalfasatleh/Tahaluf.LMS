@@ -65,9 +65,9 @@ namespace Tahaluf.LMS.API.Controllers
 
         [HttpPost]
         [Route("SearchBook")]
-        [ProducesResponseType(type: typeof(IEnumerable<Book>), StatusCodes.Status200OK)]
+        [ProducesResponseType(type: typeof(IEnumerable<ResponseFilterDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IEnumerable<Book> SearchBook(BookDTO bookDTO)
+        public IEnumerable<ResponseFilterDTO> SearchBook(BookDTO bookDTO)
         {
             return _bookServices.SearchBook(bookDTO);
         }

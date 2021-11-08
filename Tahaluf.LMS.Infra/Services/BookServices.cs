@@ -42,7 +42,7 @@ namespace Tahaluf.LMS.Infra.Services
             return _bookRepository.Update(book);
 
         }
-        public IEnumerable<Book> SearchBook(BookDTO bookDTO)
+        public IEnumerable<ResponseFilterDTO> SearchBook(BookDTO bookDTO)
         {
             return _bookRepository.SearchBook(bookDTO);
         }
