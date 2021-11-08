@@ -8,39 +8,39 @@ namespace Tahaluf.LMS.Infra.Services
     public class LoginServices : ILoginServices
     {
 
-        private readonly ILoginRepository _courseRepository;
+        private readonly ILoginRepository _loginRepository;
 
         public LoginServices(ILoginRepository loginRepository)
         {
-            this._courseRepository = loginRepository;
+            this._loginRepository = loginRepository;
         }
 
         public bool Create(Login login)
         {
-            return _courseRepository.Create(login);
+            return _loginRepository.Create(login);
         }
 
         public bool Delete(int id)
         {
-            return _courseRepository.Delete( id);
+            return _loginRepository.Delete( id);
 
         }
 
         public IEnumerable<Login> GetAll()
         {
-            return _courseRepository.GetAll();
+            return _loginRepository.GetAll();
 
         }
 
         public Login GetById(int id)
         {
-            return _courseRepository.GetById( id);
+            return _loginRepository.GetById( id);
 
         }
 
         public bool Update(Login login)
         {
-            return _courseRepository.Update(login);
+            return _loginRepository.Update(login);
 
         }
     }

@@ -45,7 +45,7 @@ namespace Tahaluf.LMS.API.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleteCourse")]
+        [Route("DeleteCourse/{id}")]
         [ProducesResponseType(type: typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public bool Delete(int id)

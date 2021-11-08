@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Tahaluf.LMS.Core.DTO;
 using Tahaluf.LMS.Core.Services;
 using Tahaluf.LMS.Data;
@@ -20,11 +17,48 @@ namespace Tahaluf.LMS.API.Controllers
         {
             this._bookServices = bookServices;
         }
- 
+
+        [HttpPost]
+        [Route("Create")]
+        [ProducesResponseType(type: typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public bool Create(Book book)
+        {
+            return _bookServices.Create(book);
+        }
+
+        [HttpPut]
+        [Route("Update")]
+        [ProducesResponseType(type: typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public bool Update(Book book)
+        {
+            return _bookServices.Update(book);
+        }
+
+        [HttpDelete]
+        [Route("Delete/{id}")]
+        [ProducesResponseType(type: typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public bool Delete(int id)
+        {
+            return _bookServices.Delete(id);
+        }
 
         [HttpGet]
-        [ProducesResponseType(type: typeof(List<Course>), StatusCodes.Status200OK)]
-        public IEnumerable<Book> GetAllBooks()
+        [Route("GetById/{id}")]
+        [ProducesResponseType(type: typeof(Book), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public Book GetById(int id)
+        {
+            return _bookServices.GetById(id);
+        }
+
+        [HttpGet]
+        [Route("GetAll")]
+        [ProducesResponseType(type: typeof(IEnumerable<Book>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IEnumerable<Book> GetAll()
         {
             return _bookServices.GetAll();
         }
@@ -37,5 +71,6 @@ namespace Tahaluf.LMS.API.Controllers
         {
             return _bookServices.SearchBook(bookDTO);
         }
+
     }
 }

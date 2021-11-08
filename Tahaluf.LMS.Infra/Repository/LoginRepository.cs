@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Text;
 using Tahaluf.LMS.Core.Common;
 using Tahaluf.LMS.Core.Repository;
 using Tahaluf.LMS.Data;
@@ -23,29 +22,31 @@ namespace Tahaluf.LMS.Infra.Repository
             p.Add("@Password", login.Password, dbType: DbType.String, ParameterDirection.Input);
             p.Add("@RoleName", login.RoleName, dbType: DbType.String, ParameterDirection.Input);
 
-            var result = _dbContext.Connection.Execute("LoginInsert", p, commandType: CommandType.StoredProcedure);
-            if (result == 1)
+            try
             {
+                var result = _dbContext.Connection.Execute("LoginInsert", p, commandType: CommandType.StoredProcedure);
                 return true;
             }
-            else
+            catch (Exception)
             {
+
                 return false;
             }
 
         }
 
-        public bool Delete(int id )
+        public bool Delete(int id)
         {
             var p = new DynamicParameters();
             p.Add("@LoginId", id, dbType: DbType.Int32, ParameterDirection.Input);
-            var result = _dbContext.Connection.Execute("LoginDelete", p, commandType: CommandType.StoredProcedure);
-            if (result == 1)
+            try
             {
+            var result = _dbContext.Connection.Execute("LoginDelete", p, commandType: CommandType.StoredProcedure);
                 return true;
             }
-            else
+            catch (Exception)
             {
+
                 return false;
             }
         }
@@ -72,13 +73,14 @@ namespace Tahaluf.LMS.Infra.Repository
             p.Add("@Password", login.Password, dbType: DbType.String, ParameterDirection.Input);
             p.Add("@RoleName", login.RoleName, dbType: DbType.String, ParameterDirection.Input);
 
-            var result = _dbContext.Connection.Execute("LoginUpdate", p, commandType: CommandType.StoredProcedure);
-            if (result == 1)
+            try
             {
+            var result = _dbContext.Connection.Execute("LoginUpdate", p, commandType: CommandType.StoredProcedure);
                 return true;
             }
-            else
+            catch (Exception)
             {
+
                 return false;
             }
         }

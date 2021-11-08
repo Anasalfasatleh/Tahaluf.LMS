@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Text;
 using Tahaluf.LMS.Core.Common;
 using Tahaluf.LMS.Core.DTO;
 using Tahaluf.LMS.Core.Repository;
@@ -40,31 +39,35 @@ namespace Tahaluf.LMS.Infra.Repository
             p.Add("@EndDate", book.EndDate, DbType.DateTime, ParameterDirection.Input);
             p.Add("@CourseId", book.CourseId, DbType.Int32, ParameterDirection.Input);
 
-            var result = _dbContext.Connection.Execute("BookInsert", p, commandType: CommandType.StoredProcedure);
-
-            if(result ==1 )
+            try
             {
+                var result = _dbContext.Connection.Execute("BookInsert", p, commandType: CommandType.StoredProcedure);
                 return true;
             }
-            else
+            catch (Exception)
             {
+
                 return false;
             }
+
         }
 
         public bool Delete(int id)
         {
             var p = new DynamicParameters();
             p.Add("@BookId", id, dbType: DbType.Int32, ParameterDirection.Input);
-            var result = _dbContext.Connection.Execute("BookDelete", p, commandType: CommandType.StoredProcedure);
-            if (result == 1)
+
+            try
             {
+                var result = _dbContext.Connection.Execute("BookDelete", p, commandType: CommandType.StoredProcedure);
                 return true;
             }
-            else
+            catch (Exception)
             {
+
                 return false;
             }
+
         }
 
         public IEnumerable<Book> GetAll()
@@ -76,7 +79,7 @@ namespace Tahaluf.LMS.Infra.Repository
         public Book GetById(int id)
         {
             var p = new DynamicParameters();
-            p.Add("@BookId",id, DbType.Int32, ParameterDirection.Input);
+            p.Add("@BookId", id, DbType.Int32, ParameterDirection.Input);
             var result = _dbContext.Connection.QueryFirstOrDefault<Book>("BookSelect", p, commandType: CommandType.StoredProcedure);
             return result;
         }
@@ -84,18 +87,20 @@ namespace Tahaluf.LMS.Infra.Repository
         public bool Update(Book book)
         {
             var p = new DynamicParameters();
-            p.Add("@LoginId", book.BookId, dbType: DbType.Int32, ParameterDirection.Input);
+            p.Add("@BookId", book.BookId, dbType: DbType.Int32, ParameterDirection.Input);
+            p.Add("@BookName", book.BookName, DbType.String, ParameterDirection.Input);
             p.Add("@Price", book.Price, DbType.Double, ParameterDirection.Input);
             p.Add("@PublishDate", book.PublishDate, DbType.DateTime, ParameterDirection.Input);
             p.Add("@EndDate", book.EndDate, DbType.DateTime, ParameterDirection.Input);
             p.Add("@CourseId", book.CourseId, DbType.Int32, ParameterDirection.Input);
 
-            var result = _dbContext.Connection.Execute("BookUpdate", p, commandType: CommandType.StoredProcedure);
-            if (result == 1)
+            try
             {
+                var result = _dbContext.Connection.Execute("BookUpdate", p, commandType: CommandType.StoredProcedure);
                 return true;
             }
-            else
+
+            catch (Exception)
             {
                 return false;
             }

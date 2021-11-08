@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Text;
 using Tahaluf.LMS.Core.Common;
 using Tahaluf.LMS.Core.Repository;
 using Tahaluf.LMS.Data;
@@ -25,13 +24,14 @@ namespace Tahaluf.LMS.Infra.Repository
             p.Add("@CourseId", studentCourse.CourseId, dbType: DbType.Int32, ParameterDirection.Input);
             p.Add("@StudentId", studentCourse.StudentId, dbType: DbType.Int32, ParameterDirection.Input);
 
-            var result = _dbContext.Connection.Execute("StudentCourseInsert", p, commandType: CommandType.StoredProcedure);
-            if (result == 1)
+            try
             {
+                var result = _dbContext.Connection.Execute("StudentCourseInsert", p, commandType: CommandType.StoredProcedure);
                 return true;
             }
-            else
+            catch (Exception)
             {
+
                 return false;
             }
 
@@ -41,13 +41,14 @@ namespace Tahaluf.LMS.Infra.Repository
         {
             var p = new DynamicParameters();
             p.Add("@StudentCourseId", id, dbType: DbType.Int32, ParameterDirection.Input);
-            var result = _dbContext.Connection.Execute("StudentCourseDelete", p, commandType: CommandType.StoredProcedure);
-            if (result == 1)
+            try
             {
+                var result = _dbContext.Connection.Execute("StudentCourseDelete", p, commandType: CommandType.StoredProcedure);
                 return true;
             }
-            else
+            catch (Exception)
             {
+
                 return false;
             }
         }
@@ -73,13 +74,14 @@ namespace Tahaluf.LMS.Infra.Repository
             p.Add("@CourseId", studentCourse.CourseId, dbType: DbType.Int32, ParameterDirection.Input);
             p.Add("@StudentId", studentCourse.StudentId, dbType: DbType.Int32, ParameterDirection.Input);
 
-            var result = _dbContext.Connection.Execute("StudentCourseUpdate", p, commandType: CommandType.StoredProcedure);
-            if (result == 1)
+            try
             {
+                var result = _dbContext.Connection.Execute("StudentCourseUpdate", p, commandType: CommandType.StoredProcedure);
                 return true;
             }
-            else
+            catch (Exception)
             {
+
                 return false;
             }
         }

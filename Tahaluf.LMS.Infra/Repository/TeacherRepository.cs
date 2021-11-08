@@ -2,14 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Text;
 using Tahaluf.LMS.Core.Common;
 using Tahaluf.LMS.Core.Repository;
 using Tahaluf.LMS.Data;
 
 namespace Tahaluf.LMS.Infra.Repository
 {
-    public class TeacherRepository :  ITeacherRepository
+    public class TeacherRepository : ITeacherRepository
     {
         private readonly IDbContext _dbContext;
         public TeacherRepository(IDbContext dbContext)
@@ -26,13 +25,14 @@ namespace Tahaluf.LMS.Infra.Repository
             p.Add("@Salary", teacher.Salary, DbType.Double, ParameterDirection.Input);
             p.Add("@LoginId", teacher.LoginId, DbType.Int32, ParameterDirection.Input);
 
-            var result = _dbContext.Connection.ExecuteAsync("TeacherInsert", p, commandType: CommandType.StoredProcedure);
-            if(result.Result == 1)
+            try
             {
-                return true; 
+                var result = _dbContext.Connection.ExecuteAsync("TeacherInsert", p, commandType: CommandType.StoredProcedure);
+                return true;
             }
-            else
+            catch (Exception)
             {
+
                 return false;
             }
         }
@@ -46,13 +46,14 @@ namespace Tahaluf.LMS.Infra.Repository
             p.Add("@Salary", teacher.Salary, DbType.Double, ParameterDirection.Input);
             p.Add("@LoginId", teacher.LoginId, DbType.Int32, ParameterDirection.Input);
 
-            var result = _dbContext.Connection.ExecuteAsync("TeacherUpdate", p, commandType: CommandType.StoredProcedure);
-            if (result.Result == 1)
+            try
             {
+                var result = _dbContext.Connection.ExecuteAsync("TeacherUpdate", p, commandType: CommandType.StoredProcedure);
                 return true;
             }
-            else
+            catch (Exception)
             {
+
                 return false;
             }
         }
@@ -61,12 +62,12 @@ namespace Tahaluf.LMS.Infra.Repository
         {
             var p = new DynamicParameters();
             p.Add("@TeacherId", id, dbType: DbType.Int32, ParameterDirection.Input);
-            var result = _dbContext.Connection.ExecuteAsync("TeacherDelete", p, commandType: CommandType.StoredProcedure);
-            if (result.Result == 1)
+            try
             {
+                var result = _dbContext.Connection.ExecuteAsync("TeacherDelete", p, commandType: CommandType.StoredProcedure);
                 return true;
             }
-            else
+            catch (Exception)
             {
                 return false;
             }

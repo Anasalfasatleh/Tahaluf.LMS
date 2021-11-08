@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using Tahaluf.LMS.Core.Common;
@@ -24,13 +25,14 @@ namespace Tahaluf.LMS.Infra.Repository
             p.Add("@Price", course.Price, dbType: DbType.Decimal, ParameterDirection.Input);
             p.Add("@StartDate", course.StartDate, dbType: DbType.DateTime, ParameterDirection.Input);
             p.Add("@EndDate", course.EndDate, dbType: DbType.DateTime, ParameterDirection.Input);
-            var result = _dbContext.Connection.Execute("CourseInsert", p, commandType: CommandType.StoredProcedure);
-            if (result == -1)
+            try
             {
+                var result = _dbContext.Connection.Execute("CourseInsert", p, commandType: CommandType.StoredProcedure);
                 return true;
             }
-            else
+            catch (Exception)
             {
+
                 return false;
             }
         }
@@ -45,13 +47,14 @@ namespace Tahaluf.LMS.Infra.Repository
         {
             var p = new DynamicParameters();
             p.Add("@CourseId", id, dbType: DbType.Int32, ParameterDirection.Input);
-            var result = _dbContext.Connection.Execute("CourseDelete", p, commandType: CommandType.StoredProcedure);
-            if (result == -1)
+            try
             {
+                var result = _dbContext.Connection.Execute("CourseDelete", p, commandType: CommandType.StoredProcedure);
                 return true;
             }
-            else
+            catch (Exception)
             {
+
                 return false;
             }
         }
@@ -64,13 +67,14 @@ namespace Tahaluf.LMS.Infra.Repository
             p.Add("@Price", course.Price, dbType: DbType.Decimal, ParameterDirection.Input);
             p.Add("@StartDate", course.StartDate, dbType: DbType.DateTime, ParameterDirection.Input);
             p.Add("@EndDate", course.EndDate, dbType: DbType.DateTime, ParameterDirection.Input);
-            var result = _dbContext.Connection.ExecuteAsync("CourseUpdate", p, commandType: CommandType.StoredProcedure);
-            if (result.Result == -1)
+            try
             {
+                var result = _dbContext.Connection.ExecuteAsync("CourseUpdate", p, commandType: CommandType.StoredProcedure);
                 return true;
             }
-            else
+            catch (Exception)
             {
+
                 return false;
             }
         }
@@ -123,7 +127,7 @@ namespace Tahaluf.LMS.Infra.Repository
             return result;
         }
 
-        public IEnumerable<Course> SearchCouresByName (Course course)
+        public IEnumerable<Course> SearchCouresByName(Course course)
         {
             var p = new DynamicParameters();
             p.Add("@Name", course.CourseName, dbType: DbType.String, ParameterDirection.Input);
