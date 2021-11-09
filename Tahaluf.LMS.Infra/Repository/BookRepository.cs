@@ -46,10 +46,8 @@ namespace Tahaluf.LMS.Infra.Repository
             }
             catch (Exception)
             {
-
                 return false;
             }
-
         }
 
         public bool Delete(int id)
@@ -64,10 +62,8 @@ namespace Tahaluf.LMS.Infra.Repository
             }
             catch (Exception)
             {
-
                 return false;
             }
-
         }
 
         public IEnumerable<Book> GetAll()
@@ -99,7 +95,6 @@ namespace Tahaluf.LMS.Infra.Repository
                 var result = _dbContext.Connection.Execute("BookUpdate", p, commandType: CommandType.StoredProcedure);
                 return true;
             }
-
             catch (Exception)
             {
                 return false;
