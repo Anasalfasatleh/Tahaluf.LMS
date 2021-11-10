@@ -16,7 +16,7 @@ namespace Tahaluf.LMS.Infra.Services
         }
         public bool Create(Book book)
         {
-            return _bookRepository.Create(book); ;
+            return _bookRepository.Create(book); 
         }
 
         public bool Delete(int id)
