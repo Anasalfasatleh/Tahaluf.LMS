@@ -8,6 +8,6 @@ namespace Tahaluf.LMS.Core.DTO
     {
         public string UserName { get; set; }
 
-        public string Passworrd { get; set; }
+        public string RoleName { get; set; }
     }
 }

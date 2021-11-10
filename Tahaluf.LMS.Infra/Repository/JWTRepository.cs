@@ -24,7 +24,9 @@ namespace Tahaluf.LMS.Infra.Repository
             var p = new DynamicParameters();
             p.Add("@UserName", login.UserName, dbType: DbType.String, ParameterDirection.Input);
             p.Add("@Password", login.Password, dbType: DbType.String, ParameterDirection.Input);
-            return _dbContext.Connection.QueryFirstOrDefault<ResponseLoginDTO>("AuthLogin", commandType: CommandType.StoredProcedure);
+           
+                var result = _dbContext.Connection.QueryFirstOrDefault<ResponseLoginDTO>("AuthLogin", p,commandType: CommandType.StoredProcedure);
+            return result;
         }
     }
 }
