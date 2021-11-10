@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Tahaluf.LMS.Core.DTO;
 using Tahaluf.LMS.Data;
 
 namespace Tahaluf.LMS.Core.Services
@@ -16,5 +17,6 @@ namespace Tahaluf.LMS.Core.Services
         StudentCourse GetById(int id);
 
         IEnumerable<StudentCourse> GetAll();
+        IEnumerable<StudentCoursesResponseDTO> StudentCourses();
     }
 }

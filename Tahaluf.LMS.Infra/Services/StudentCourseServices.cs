@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Tahaluf.LMS.Core.DTO;
 using Tahaluf.LMS.Core.Repository;
 using Tahaluf.LMS.Core.Services;
 using Tahaluf.LMS.Data;
@@ -42,6 +43,12 @@ namespace Tahaluf.LMS.Infra.Services
         public bool Update(StudentCourse studentCourse)
         {
             return _studentCourse.Update(studentCourse);
+
+        }
+
+        public IEnumerable<StudentCoursesResponseDTO> StudentCourses()
+        {
+            return _studentCourse.StudentCourses();
 
         }
     }

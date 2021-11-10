@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using Tahaluf.LMS.Core.Common;
+using Tahaluf.LMS.Core.DTO;
 using Tahaluf.LMS.Core.Repository;
 using Tahaluf.LMS.Data;
 
@@ -84,6 +85,14 @@ namespace Tahaluf.LMS.Infra.Repository
 
                 return false;
             }
+        }
+
+
+        public IEnumerable<StudentCoursesResponseDTO> StudentCourses()
+        {
+            var result = _dbContext.Connection.Query<StudentCoursesResponseDTO>("GetStudentAndCourses"
+                , commandType: CommandType.StoredProcedure);
+            return result;
         }
     }
 }
