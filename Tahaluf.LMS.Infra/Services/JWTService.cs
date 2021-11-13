@@ -42,23 +42,20 @@ namespace Tahaluf.LMS.Infra.Services
                     //userName, roleName
                     Subject = new ClaimsIdentity(new Claim[]
                         {
-                    new Claim(ClaimTypes.Name, result.UserName)
-                    ,
+                        new Claim(ClaimTypes.Name, result.UserName),
                         new Claim(ClaimTypes.Role, result.RoleName)
                         }),
 
                     //expire == session timeout
                     Expires = DateTime.UtcNow.AddHours(1),
 
-                    //signcredintial ==(to assgin which encoding method to use) "Hmacsha256signutre"(method used to encode data)
+                    //SigningCredential ==(to assign which encoding method to use) "Hmacsha256signutre"(method used to encode data)
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256)
 
                 };
 
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 return tokenHandler.WriteToken(token);
-
-
 
             }
 

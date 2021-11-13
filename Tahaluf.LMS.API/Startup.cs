@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tahaluf.LMS.Core.Common;
+using Tahaluf.LMS.Core.IServices;
 using Tahaluf.LMS.Core.Repository;
 using Tahaluf.LMS.Core.Services;
 using Tahaluf.LMS.Infra.Common;
@@ -77,6 +78,7 @@ namespace Tahaluf.LMS.API
             services.AddScoped<IStudentServices, StudentServices>();
             services.AddScoped<IStudentCourseServices, StudentCourseServices>();
             services.AddScoped<ITeacherCourseServices, TeacherCourseServices>();
+            services.AddScoped<IFileService, FileService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

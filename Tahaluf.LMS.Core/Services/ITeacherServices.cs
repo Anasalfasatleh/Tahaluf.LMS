@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Tahaluf.LMS.Core.DTO;
 using Tahaluf.LMS.Data;
 
 namespace Tahaluf.LMS.Core.Services
@@ -16,6 +17,6 @@ namespace Tahaluf.LMS.Core.Services
         IEnumerable<Teacher> GetAll();
 
         Teacher GetByEmail(Teacher teacher);
-
+        bool Create(CreateTeacherDTO teacher);
     }
 }

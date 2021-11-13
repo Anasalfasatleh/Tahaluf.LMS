@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using Tahaluf.LMS.Core.Common;
+using Tahaluf.LMS.Core.DTO;
 using Tahaluf.LMS.Core.Repository;
 using Tahaluf.LMS.Data;
 
@@ -17,6 +18,22 @@ namespace Tahaluf.LMS.Infra.Repository
             _dbContext = dbContext;
         }
 
+        public bool Addimage(int id , string path)
+        {
+            var p = new DynamicParameters();
+            p.Add("@id", id, dbType: DbType.Int32, ParameterDirection.Input);
+            p.Add("@imagePath", path, dbType: DbType.String, ParameterDirection.Input);
+            try
+            {
+                var result = _dbContext.Connection.Execute("UploadImageToCourse", p, commandType: CommandType.StoredProcedure);
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
+        }
 
         public bool Create(Course course)
         {

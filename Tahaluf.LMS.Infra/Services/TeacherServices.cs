@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Tahaluf.LMS.Core.DTO;
 using Tahaluf.LMS.Core.Repository;
 using Tahaluf.LMS.Core.Services;
 using Tahaluf.LMS.Data;
@@ -45,6 +46,11 @@ namespace Tahaluf.LMS.Infra.Services
         public bool Update(Teacher teacher)
         {
             return _teacherRepository.Update(teacher);
+
+        }
+        public bool Create(CreateTeacherDTO teacher)
+        {
+            return _teacherRepository.Create(teacher);
 
         }
     }

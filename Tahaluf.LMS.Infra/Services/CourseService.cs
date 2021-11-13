@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using Tahaluf.LMS.Core.DTO;
 using Tahaluf.LMS.Core.Repository;
 using Tahaluf.LMS.Core.Services;
 using Tahaluf.LMS.Data;
@@ -16,6 +16,13 @@ namespace Tahaluf.LMS.Infra.Services
         {
             this._courseRepository = courseRepository;
         }
+
+        public bool Addimage(int id, string path)
+        {
+            return _courseRepository.Addimage(id,path);
+
+        }
+
 
         public bool Create(Course course)
         {

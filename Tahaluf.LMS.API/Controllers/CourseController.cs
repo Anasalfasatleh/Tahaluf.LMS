@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Tahaluf.LMS.Core.IServices;
 using Tahaluf.LMS.Core.Services;
 using Tahaluf.LMS.Data;
 
@@ -13,11 +15,36 @@ namespace Tahaluf.LMS.API.Controllers
     public class CourseController : ControllerBase
     {
         private readonly ICourseService _courseService;
+        private readonly IFileService _fileService;
 
-        public CourseController(ICourseService courseService)
+        public CourseController(ICourseService courseService,IFileService fileService)
         {
             this._courseService = courseService;
+            this._fileService = fileService;
         }
+
+        [HttpPost]
+        [Route("UploadImageToCoure")]
+        public async Task<bool> UploadImageToCoure([FromForm] int id ,[FromForm] IFormFile image)
+        {
+            
+            if(!_fileService.IsPicture(image.FileName))
+            {
+                return false;
+            }
+
+            if (_fileService.CheckPictureSizeInMB(image.Length, 2))
+            {
+                return false;
+            }
+            var imageName = _fileService.GenerateFileName(image.FileName);
+            await _fileService.SavePic(image, imageName);
+
+            _courseService.Addimage(id, imageName);
+            return true; 
+        }
+
+
 
         [HttpGet]
         [ProducesResponseType(type: typeof(List<Course>), StatusCodes.Status200OK)]

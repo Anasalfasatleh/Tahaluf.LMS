@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Tahaluf.LMS.Core.DTO;
@@ -56,6 +57,7 @@ namespace Tahaluf.LMS.API.Controllers
 
         [HttpGet]
         [Route("GetAll")]
+        [Authorize(Roles ="Admin")]
         [ProducesResponseType(type: typeof(IEnumerable<Book>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IEnumerable<Book> GetAll()

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tahaluf.LMS.Core.DTO;
 using Tahaluf.LMS.Core.Services;
 using Tahaluf.LMS.Data;
 
@@ -25,7 +26,7 @@ namespace Tahaluf.LMS.API.Controllers
         [Route("Create")]
         [ProducesResponseType(type: typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public bool Create(Teacher teacher)
+        public bool Create(CreateTeacherDTO teacher)
         {
             return _teacherServices.Create(teacher);
         }

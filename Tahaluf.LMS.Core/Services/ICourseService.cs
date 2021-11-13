@@ -21,5 +21,6 @@ namespace Tahaluf.LMS.Core.Services
         IEnumerable<Course> GetCourseByPrice(Course course);
         IEnumerable<Course> GetCourseByStartDate(Course course);
         IEnumerable<Course> SearchCouresByName(Course course);
+        bool Addimage(int id, string path);
     }
 }

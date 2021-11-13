@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using Tahaluf.LMS.Core.Common;
+using Tahaluf.LMS.Core.DTO;
 using Tahaluf.LMS.Core.Repository;
 using Tahaluf.LMS.Data;
 
@@ -17,20 +18,23 @@ namespace Tahaluf.LMS.Infra.Repository
         }
 
 
-        public bool Create(Teacher teacher)
+        public bool Create(CreateTeacherDTO teacher)
         {
             var p = new DynamicParameters();
+            p.Add("@UserName", teacher.UserName, DbType.String, ParameterDirection.Input);
+            p.Add("@Password", teacher.Password, DbType.String, ParameterDirection.Input);
+            p.Add("@RoleName", teacher.RoleName, DbType.String, ParameterDirection.Input);
             p.Add("@TeacherName", teacher.TeacherName, DbType.String, ParameterDirection.Input);
             p.Add("@Email", teacher.Email, DbType.String, ParameterDirection.Input);
             p.Add("@Salary", teacher.Salary, DbType.Double, ParameterDirection.Input);
-            p.Add("@LoginId", teacher.LoginId, DbType.Int32, ParameterDirection.Input);
+            p.Add("@PhoneNumber", teacher.PhoneNumber, DbType.String, ParameterDirection.Input);
 
             try
             {
-                var result = _dbContext.Connection.ExecuteAsync("TeacherInsert", p, commandType: CommandType.StoredProcedure);
+                var result = _dbContext.Connection.ExecuteAsync("CreateTeacher", p, commandType: CommandType.StoredProcedure);
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
                 return false;
@@ -93,6 +97,11 @@ namespace Tahaluf.LMS.Infra.Repository
             p.Add("@TeacherEmail", teacher.Email, DbType.String, ParameterDirection.Input);
             var result = _dbContext.Connection.QueryFirstOrDefault<Teacher>("GetTeacherByEmail", p, commandType: CommandType.StoredProcedure);
             return result;
+        }
+
+        public bool Create(Teacher t)
+        {
+            throw new NotImplementedException();
         }
     }
 }
