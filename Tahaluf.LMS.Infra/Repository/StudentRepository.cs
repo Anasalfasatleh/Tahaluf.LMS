@@ -17,6 +17,12 @@ namespace Tahaluf.LMS.Infra.Repository
         {
             this._dbContext = dbContext;
         }
+
+        public IEnumerable<GetStudentAndCoursesDTO> GetStudentAndCourses()
+        {
+            var result = _dbContext.Connection.Query<GetStudentAndCoursesDTO>("GetStudentCourses", commandType: CommandType.StoredProcedure);
+            return result;
+        }
         public bool Create(Student student)
         {
             var p = new DynamicParameters();

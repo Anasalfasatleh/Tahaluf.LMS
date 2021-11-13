@@ -9,5 +9,6 @@ namespace Tahaluf.LMS.Core.Repository
     public interface IStudentRepository : ICRUDRepository<Student>
     {
         MarkDetailsResponseDTO GetMarkDetails();
+        IEnumerable<GetStudentAndCoursesDTO> GetStudentAndCourses();
     }
 }

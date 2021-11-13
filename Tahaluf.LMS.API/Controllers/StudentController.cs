@@ -23,6 +23,17 @@ namespace Tahaluf.LMS.API.Controllers
             this._studentServices = studentRepository;
         }
 
+
+        [HttpGet]
+        [Route("GetStudentAndCourses")]
+        [ProducesResponseType(type: typeof(IEnumerable<GetStudentAndCoursesDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IEnumerable<GetStudentAndCoursesDTO> GetStudentAndCourses()
+        {
+            return _studentServices.GetStudentAndCourses();
+        }
+
+
         [HttpPost]
         [Route("Create")]
         [ProducesResponseType(type: typeof(bool), StatusCodes.Status200OK)]

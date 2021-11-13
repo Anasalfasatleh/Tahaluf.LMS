@@ -10,9 +10,15 @@ namespace Tahaluf.LMS.Infra.Services
     {
         private readonly IStudentRepository _studentRepository;
 
+
         public StudentServices(IStudentRepository studentRepository)
         {
             this._studentRepository = studentRepository;
+        }
+
+        public IEnumerable<GetStudentAndCoursesDTO> GetStudentAndCourses()
+        {
+            return _studentRepository.GetStudentAndCourses();
         }
 
         public bool Create(Student student)
