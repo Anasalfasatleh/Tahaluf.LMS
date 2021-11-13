@@ -1,1 +1,1666 @@
-﻿
+﻿USE [LMS2]
+GO
+/****** Object:  Table [dbo].[Book]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Book](
+	[BookId] [int] IDENTITY(1,1) NOT NULL,
+	[BookName] [varchar](50) NOT NULL,
+	[Price] [float] NULL,
+	[PublishDate] [date] NULL,
+	[EndDate] [date] NULL,
+	[CourseId] [int] NULL,
+ CONSTRAINT [PK_Book] PRIMARY KEY CLUSTERED 
+(
+	[BookId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Course]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Course](
+	[CourseId] [int] IDENTITY(1,1) NOT NULL,
+	[CourseName] [varchar](50) NOT NULL,
+	[Price] [float] NULL,
+	[StartDate] [date] NULL,
+	[imagePath] [varchar](250) NULL,
+ CONSTRAINT [PK_Course] PRIMARY KEY CLUSTERED 
+(
+	[CourseId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Login]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Login](
+	[LoginId] [int] IDENTITY(1,1) NOT NULL,
+	[UserName] [varchar](50) NOT NULL,
+	[Password] [varchar](50) NULL,
+	[RoleName] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_Login] PRIMARY KEY CLUSTERED 
+(
+	[LoginId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Student]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Student](
+	[StudentId] [int] IDENTITY(1,1) NOT NULL,
+	[FName] [varchar](50) NOT NULL,
+	[LName] [varchar](50) NOT NULL,
+	[BirthDate] [date] NULL,
+	[Mark] [float] NULL,
+ CONSTRAINT [PK_Student] PRIMARY KEY CLUSTERED 
+(
+	[StudentId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[StudentCourse]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[StudentCourse](
+	[StudentCourseId] [int] IDENTITY(1,1) NOT NULL,
+	[StudentId] [int] NULL,
+	[CourseId] [int] NULL,
+ CONSTRAINT [PK_StudentCourse] PRIMARY KEY CLUSTERED 
+(
+	[StudentCourseId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Teacher]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Teacher](
+	[TeacherId] [int] IDENTITY(1,1) NOT NULL,
+	[TeacherName] [varchar](50) NOT NULL,
+	[Email] [varchar](50) NOT NULL,
+	[Salary] [float] NULL,
+	[PhoneNumber] [varchar](50) NULL,
+	[LoginId] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[TeacherId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TeacherCourse]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TeacherCourse](
+	[TeacherCourseId] [int] IDENTITY(1,1) NOT NULL,
+	[TeacherId] [int] NULL,
+	[CourseId] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[TeacherCourseId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Book]  WITH CHECK ADD  CONSTRAINT [FK_Book_Course] FOREIGN KEY([CourseId])
+REFERENCES [dbo].[Course] ([CourseId])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Book] CHECK CONSTRAINT [FK_Book_Course]
+GO
+ALTER TABLE [dbo].[StudentCourse]  WITH CHECK ADD  CONSTRAINT [FK_StudentCourse_Course] FOREIGN KEY([CourseId])
+REFERENCES [dbo].[Course] ([CourseId])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[StudentCourse] CHECK CONSTRAINT [FK_StudentCourse_Course]
+GO
+ALTER TABLE [dbo].[StudentCourse]  WITH CHECK ADD  CONSTRAINT [FK_StudentCourse_Student] FOREIGN KEY([StudentId])
+REFERENCES [dbo].[Student] ([StudentId])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[StudentCourse] CHECK CONSTRAINT [FK_StudentCourse_Student]
+GO
+/****** Object:  StoredProcedure [dbo].[AuthLogin]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[AuthLogin]
+@UserName varchar(50),
+@Password varchar(50)
+as 
+select  UserName , RoleName
+from Login
+where UserName = @UserName and Password = @Password
+GO
+/****** Object:  StoredProcedure [dbo].[BookDelete]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[BookDelete] 
+    @BookId int
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	
+	BEGIN TRAN
+
+	DELETE
+	FROM   [dbo].[Book]
+	WHERE  [BookId] = @BookId
+
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[BookInsert]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[BookInsert] 
+    @BookName varchar(50),
+    @Price float = NULL,
+    @PublishDate date = NULL,
+    @EndDate date = NULL,
+    @CourseId int = NULL
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	
+	BEGIN TRAN
+	
+	INSERT INTO [dbo].[Book] ([BookName], [Price], [PublishDate], [EndDate], [CourseId])
+	SELECT @BookName, @Price, @PublishDate, @EndDate, @CourseId
+	
+	-- Begin Return Select <- do not remove
+	SELECT [BookId], [BookName], [Price], [PublishDate], [EndDate], [CourseId]
+	FROM   [dbo].[Book]
+	WHERE  [BookId] = SCOPE_IDENTITY()
+	-- End Return Select <- do not remove
+               
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[BookSelect]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[BookSelect] 
+    @BookId int
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+
+	BEGIN TRAN
+
+	SELECT [BookId], [BookName], [Price], [PublishDate], [EndDate], [CourseId] 
+	FROM   [dbo].[Book] 
+	WHERE  ([BookId] = @BookId OR @BookId IS NULL) 
+
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[BookUpdate]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[BookUpdate] 
+    @BookId int,
+    @BookName varchar(50),
+    @Price float = NULL,
+    @PublishDate date = NULL,
+    @EndDate date = NULL,
+    @CourseId int = NULL
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	
+	BEGIN TRAN
+
+	UPDATE [dbo].[Book]
+	SET    [BookName] = @BookName, [Price] = @Price, [PublishDate] = @PublishDate, [EndDate] = @EndDate, [CourseId] = @CourseId
+	WHERE  [BookId] = @BookId
+	
+	-- Begin Return Select <- do not remove
+	SELECT [BookId], [BookName], [Price], [PublishDate], [EndDate], [CourseId]
+	FROM   [dbo].[Book]
+	WHERE  [BookId] = @BookId	
+	-- End Return Select <- do not remove
+
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[CourseDelete]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[CourseDelete] 
+    @CourseId int
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	
+	BEGIN TRAN
+
+	DELETE
+	FROM   [dbo].[Course]
+	WHERE  [CourseId] = @CourseId
+
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[CourseInsert]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[CourseInsert] 
+    @CourseName varchar(50),
+    @Price float = NULL,
+    @StartDate date = NULL,
+    @imagePath varchar(250) = NULL
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	
+	BEGIN TRAN
+	
+	INSERT INTO [dbo].[Course] ([CourseName], [Price], [StartDate], imagePath)
+	SELECT @CourseName, @Price, @StartDate, @imagePath
+	
+       
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[CourseSelect]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[CourseSelect] 
+    @CourseId int
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+
+	BEGIN TRAN
+
+	SELECT [CourseId], [CourseName], [Price], [StartDate], imagePath 
+	FROM   [dbo].[Course] 
+	WHERE  ([CourseId] = @CourseId OR @CourseId IS NULL) 
+
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[CourseUpdate]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[CourseUpdate] 
+    @CourseId int,
+    @CourseName varchar(50),
+    @Price float = NULL,
+    @StartDate date = NULL,
+    @EndDate varchar(250) = NULL
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	
+	BEGIN TRAN
+
+	UPDATE [dbo].[Course]
+	SET    [CourseName] = @CourseName, [Price] = @Price, [StartDate] = @StartDate, imagePath = @EndDate
+	WHERE  [CourseId] = @CourseId
+	
+	-- Begin Return Select <- do not remove
+	SELECT [CourseId], [CourseName], [Price], [StartDate], imagePath
+	FROM   [dbo].[Course]
+	WHERE  [CourseId] = @CourseId	
+	-- End Return Select <- do not remove
+
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[CreateCourse]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[CreateCourse]
+@CourseName varchar(50),
+@Price float , 
+@StartDate date , 
+@EndDate varchar(50) 
+as 
+insert into Course (CourseName , Price,StartDate,imagePath)values (@CourseName,@Price,@StartDate,@EndDate)
+GO
+/****** Object:  StoredProcedure [dbo].[CreateTeacher]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+create proc [dbo].[CreateTeacher]
+@UserName varchar(50), 
+@Password varchar(50),
+@RoleName varchar(50),
+@TeacherName varchar(50) ,
+@Email varchar(50), 
+@Salary float null , 
+@PhoneNumber varchar(50) null
+as 
+begin
+INSERT INTO [dbo].[Login] ([UserName], [Password], [RoleName])
+Values (@UserName, @Password, @RoleName)
+INSERT INTO [dbo].[Teacher] ( [TeacherName], [Email], [Salary], [PhoneNumber], [LoginId])
+SELECT  @TeacherName, @Email, @Salary, @PhoneNumber, SCOPE_IDENTITY()
+end
+GO
+/****** Object:  StoredProcedure [dbo].[DeleteBook]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[DeleteBook]
+
+(
+	@BookId int
+)
+
+AS
+DELETE FROM [Book]
+
+WHERE
+BookId = @BookId
+
+
+/*DROP PROC dbo.sproc_DeleteBook*/
+GO
+/****** Object:  StoredProcedure [dbo].[DeleteCourse]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[DeleteCourse]
+@CourseId int 
+as 
+delete from Course Where CourseId=@CourseId 
+GO
+/****** Object:  StoredProcedure [dbo].[DeleteLogin]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[DeleteLogin]
+
+(
+	@LoginId int
+)
+
+AS
+DELETE FROM [Login]
+
+WHERE
+LoginId = @LoginId
+
+
+/*DROP PROC dbo.sproc_DeleteLogin*/
+GO
+/****** Object:  StoredProcedure [dbo].[DeleteStudent]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[DeleteStudent]
+
+(
+	@StudentId int
+)
+
+AS
+DELETE FROM [Student]
+
+WHERE
+StudentId = @StudentId
+
+
+/*DROP PROC dbo.sproc_DeleteStudent*/
+GO
+/****** Object:  StoredProcedure [dbo].[DeleteStudentCourse]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[DeleteStudentCourse]
+
+(
+	@StudentCourseId int
+)
+
+AS
+DELETE FROM [StudentCourse]
+
+WHERE
+StudentCourseId = @StudentCourseId
+
+
+/*DROP PROC dbo.sproc_DeleteStudentCourse*/
+GO
+/****** Object:  StoredProcedure [dbo].[DeleteTeacher]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[DeleteTeacher]
+
+(
+	@TeacherId int
+)
+
+AS
+DELETE FROM [Teacher]
+
+WHERE
+TeacherId = @TeacherId
+
+
+/*DROP PROC dbo.sproc_DeleteTeacher*/
+GO
+/****** Object:  StoredProcedure [dbo].[DeleteTeacherCourse]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[DeleteTeacherCourse]
+
+(
+	@TeacherCourseId int
+)
+
+AS
+DELETE FROM [TeacherCourse]
+
+WHERE
+TeacherCourseId = @TeacherCourseId
+
+
+/*DROP PROC dbo.sproc_DeleteTeacherCourse*/
+GO
+/****** Object:  StoredProcedure [dbo].[GetAllBooks]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+create PROCEDURE [dbo].[GetAllBooks]
+AS
+select * from dbo.Book
+GO
+/****** Object:  StoredProcedure [dbo].[GetAllCourse]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetAllCourse]
+AS
+select * from dbo.Course
+GO
+/****** Object:  StoredProcedure [dbo].[GetAllLogins]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+create PROCEDURE [dbo].[GetAllLogins]
+AS
+select * from dbo.Login
+GO
+/****** Object:  StoredProcedure [dbo].[GetAllStudentCourses]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+create PROCEDURE [dbo].[GetAllStudentCourses]
+AS
+select * from dbo.StudentCourse
+GO
+/****** Object:  StoredProcedure [dbo].[GetAllStudents]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+create PROCEDURE [dbo].[GetAllStudents]
+AS
+select * from dbo.Student
+GO
+/****** Object:  StoredProcedure [dbo].[GetAllTeacherCourses]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+create PROCEDURE [dbo].[GetAllTeacherCourses]
+AS
+select * from dbo.TeacherCourse
+GO
+/****** Object:  StoredProcedure [dbo].[GetAllTeachers]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+create PROCEDURE [dbo].[GetAllTeachers]
+AS
+select * from dbo.Teacher
+GO
+/****** Object:  StoredProcedure [dbo].[GetBook]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetBook]
+AS
+SELECT * FROM [Book]
+
+/*DROP PROC dbo.sproc_GetBook*/
+GO
+/****** Object:  StoredProcedure [dbo].[GetBookDetails]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetBookDetails]
+
+(
+	@BookId int
+)
+
+AS
+SELECT * FROM [Book]
+
+WHERE
+BookId = @BookId
+
+
+/*DROP PROC dbo.sproc_GetBookDetails*/
+GO
+/****** Object:  StoredProcedure [dbo].[GetByCourseName]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+Create Proc [dbo].[GetByCourseName] 
+@CourseName varchar(50)
+as 
+select * from Course where CourseName = @CourseName
+GO
+/****** Object:  StoredProcedure [dbo].[GetByCoursePrice]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+Create Proc [dbo].[GetByCoursePrice]
+@Price float
+as 
+select * from Course where Price = @Price
+GO
+/****** Object:  StoredProcedure [dbo].[GetByCourseStartDate]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+Create Proc [dbo].[GetByCourseStartDate]
+@StartDate DATETIME
+as 
+select * from Course where StartDate = @StartDate
+
+
+GO
+/****** Object:  StoredProcedure [dbo].[GetBySubCourseName]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+Create Proc [dbo].[GetBySubCourseName] 
+@CourseName varchar(50)
+as 
+select * from Course where CourseName like '%'+ @CourseName+'%' 
+GO
+/****** Object:  StoredProcedure [dbo].[GetCheapestCourse]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+create proc [dbo].[GetCheapestCourse]
+as 
+select top 3 * from Course 
+order by Price ASC 
+GO
+/****** Object:  StoredProcedure [dbo].[GetCourse]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetCourse]
+AS
+SELECT * FROM [Course]
+
+/*DROP PROC dbo.sproc_GetCourse*/
+GO
+/****** Object:  StoredProcedure [dbo].[GetCourseDetails]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetCourseDetails]
+
+(
+	@CourseId int
+)
+
+AS
+SELECT * FROM [Course]
+
+WHERE
+CourseId = @CourseId
+
+
+/*DROP PROC dbo.sproc_GetCourseDetails*/
+GO
+/****** Object:  StoredProcedure [dbo].[GetCourseNameAndPrice]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[GetCourseNameAndPrice] 
+as 
+select CourseName , Price from Course 
+GO
+/****** Object:  StoredProcedure [dbo].[GetStudent]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetStudent]
+AS
+SELECT * FROM [Student]
+
+/*DROP PROC dbo.sproc_GetStudent*/
+GO
+/****** Object:  StoredProcedure [dbo].[GetStudentAndCourses]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[GetStudentAndCourses]
+As 
+begin
+select s.FName as 'StudentName' ,  c.CourseName as 'CourseName'
+from Student s , Course c , StudentCourse sc
+where s.StudentId=sc.StudentId and sc.CourseId=c.CourseId
+
+end
+GO
+/****** Object:  StoredProcedure [dbo].[GetStudentCourse]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetStudentCourse]
+AS
+SELECT * FROM [StudentCourse]
+
+/*DROP PROC dbo.sproc_GetStudentCourse*/
+GO
+/****** Object:  StoredProcedure [dbo].[GetStudentCourseDetails]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetStudentCourseDetails]
+
+(
+	@StudentCourseId int
+)
+
+AS
+SELECT * FROM [StudentCourse]
+
+WHERE
+StudentCourseId = @StudentCourseId
+
+
+/*DROP PROC dbo.sproc_GetStudentCourseDetails*/
+GO
+/****** Object:  StoredProcedure [dbo].[GetStudentCourses]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+create proc [dbo].[GetStudentCourses]
+as
+ select s.fName +' '+s.lName as[StudentName] , c.CourseName as[CourseName] , t.TeacherName as [TeacherName]
+ from student s
+ join StudentCourse sc on sc.studentId = s.StudentId
+ join course c on c.CourseId = sc.courseId
+ join TeacherCourse tc on tc.courseId = c.CourseId
+ join Teacher t on t.TeacherId = tc.teacherId
+GO
+/****** Object:  StoredProcedure [dbo].[GetStudentDetails]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetStudentDetails]
+
+(
+	@StudentId int
+)
+
+AS
+SELECT * FROM [Student]
+
+WHERE
+StudentId = @StudentId
+
+
+/*DROP PROC dbo.sproc_GetStudentDetails*/
+GO
+/****** Object:  StoredProcedure [dbo].[GetTeacher]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetTeacher]
+AS
+SELECT * FROM [Teacher]
+
+/*DROP PROC dbo.sproc_GetTeacher*/
+GO
+/****** Object:  StoredProcedure [dbo].[GetTeacherByEmail]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetTeacherByEmail]
+@TeacheEmail varchar(50)
+AS
+
+	SELECT [TeacherId], [TeacherName], [Email], [Salary], [PhoneNumber], [LoginId] 
+	FROM   [dbo].[Teacher] 
+	WHERE  ([Email] = @TeacheEmail OR @TeacheEmail IS NULL) 
+GO
+/****** Object:  StoredProcedure [dbo].[GetTeacherCourse]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetTeacherCourse]
+AS
+SELECT * FROM [TeacherCourse]
+
+/*DROP PROC dbo.sproc_GetTeacherCourse*/
+GO
+/****** Object:  StoredProcedure [dbo].[GetTeacherCourseDetails]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetTeacherCourseDetails]
+
+(
+	@TeacherCourseId int
+)
+
+AS
+SELECT * FROM [TeacherCourse]
+
+WHERE
+TeacherCourseId = @TeacherCourseId
+
+
+/*DROP PROC dbo.sproc_GetTeacherCourseDetails*/
+GO
+/****** Object:  StoredProcedure [dbo].[GetTeacherDetails]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[GetTeacherDetails]
+
+(
+	@TeacherId int
+)
+
+AS
+SELECT * FROM [Teacher]
+
+WHERE
+TeacherId = @TeacherId
+
+
+/*DROP PROC dbo.sproc_GetTeacherDetails*/
+GO
+/****** Object:  StoredProcedure [dbo].[InsertLogin]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[InsertLogin]
+(
+	@UserName nvarchar (MAX),
+	@Password nvarchar (MAX),
+	@RoleName nvarchar (MAX),
+	@LoginId  int OUTPUT
+)
+
+AS
+INSERT INTO [Login]
+( 
+	UserName,
+	Password,
+	RoleName
+
+)
+VALUES 
+(
+	@UserName,
+	@Password,
+	@RoleName
+)
+
+
+SET @LoginId= @@IDENTITY
+ Return @LoginId
+/*DROP PROC dbo.sproc_InsertLogin*/
+GO
+/****** Object:  StoredProcedure [dbo].[InsertStudentCourse]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[InsertStudentCourse]
+(
+	@StudentId int,
+	@CourseId int
+)
+
+AS
+INSERT INTO [StudentCourse]
+( 
+	StudentId,
+	CourseId
+
+)
+VALUES 
+(
+	@StudentId,
+	@CourseId
+)
+
+
+
+GO
+/****** Object:  StoredProcedure [dbo].[InsertTeacherCourse]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[InsertTeacherCourse]
+(
+	@TeacherId int,
+	@CourseId int
+)
+
+AS
+INSERT INTO [TeacherCourse]
+( 
+	TeacherId,
+	CourseId
+
+)
+VALUES 
+(
+	@TeacherId,
+	@CourseId
+)
+
+
+
+GO
+/****** Object:  StoredProcedure [dbo].[InsertUser]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+create proc [dbo].[InsertUser]
+	@Id nvarchar(450) ,
+	@UserName nvarchar(256) NULL,
+	@NormalizedUserName [nvarchar](256) NULL,
+	@Email nvarchar(256) NULL,
+	@NormalizedEmail nvarchar(256) NULL,
+	@EmailConfirmed bit ,
+	@PasswordHash nvarchar(max) NULL,
+	@SecurityStamp nvarchar(max) NULL,
+	@ConcurrencyStamp nvarchar(max) NULL,
+	@PhoneNumber nvarchar(max) NULL,
+	@PhoneNumberConfirmed bit ,
+	@TwoFactorEnabled bit ,
+	@LockoutEnd datetimeoffset(7) NULL,
+	@LockoutEnabled bit ,
+	@AccessFailedCount int ,
+	@FirstName nvarchar(50) ,
+	@LastName nvarchar(50) ,
+	@ProfilePicturePath nvarchar(250) NULL,
+	@LocationId int NULL,
+	@EmployeeId int NULL,
+	@PatientId int NULL
+	as 
+	begin
+	INSERT into AspNetUsers (
+	Id ,
+	UserName ,
+	NormalizedUserName ,
+	Email ,
+	NormalizedEmail ,
+	EmailConfirmed ,
+	PasswordHash ,
+	SecurityStamp ,
+	ConcurrencyStamp ,
+	PhoneNumber ,
+	PhoneNumberConfirmed ,
+	TwoFactorEnabled ,
+	LockoutEnd ,
+	LockoutEnabled ,
+	AccessFailedCount ,
+	FirstName ,
+	LastName ,
+	ProfilePicturePath ,
+	LocationId ,
+	EmployeeId ,
+	PatientId 
+	)
+	VALUES 
+	(
+	@Id ,
+	@UserName ,
+	@NormalizedUserName ,
+	@Email ,
+	@NormalizedEmail ,
+	@EmailConfirmed ,
+	@PasswordHash ,
+	@SecurityStamp ,
+	@ConcurrencyStamp ,
+	@PhoneNumber ,
+	@PhoneNumberConfirmed ,
+	@TwoFactorEnabled ,
+	@LockoutEnd ,
+	@LockoutEnabled ,
+	@AccessFailedCount ,
+	@FirstName ,
+	@LastName ,
+	@ProfilePicturePath ,
+	@LocationId ,
+	@EmployeeId ,
+	@PatientId 
+
+	)
+	END
+GO
+/****** Object:  StoredProcedure [dbo].[LoginDelete]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[LoginDelete] 
+    @LoginId int
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	
+	BEGIN TRAN
+
+	DELETE
+	FROM   [dbo].[Login]
+	WHERE  [LoginId] = @LoginId
+
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[LoginInsert]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[LoginInsert] 
+    @UserName varchar(50),
+    @Password varchar(50),
+    @RoleName varchar(50)
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	
+	BEGIN TRAN
+	
+	INSERT INTO [dbo].[Login] ([UserName], [Password], [RoleName])
+	SELECT @UserName, @Password, @RoleName
+	
+	-- Begin Return Select <- do not remove
+	SELECT [LoginId], [UserName], [Password], [RoleName]
+	FROM   [dbo].[Login]
+	WHERE  [LoginId] = SCOPE_IDENTITY()
+	-- End Return Select <- do not remove
+               
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[LoginSelect]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[LoginSelect] 
+    @LoginId int
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+
+	BEGIN TRAN
+
+	SELECT [LoginId], [UserName], [Password], [RoleName] 
+	FROM   [dbo].[Login] 
+	WHERE  ([LoginId] = @LoginId OR @LoginId IS NULL) 
+
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[LoginUpdate]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[LoginUpdate] 
+    @LoginId int,
+    @UserName varchar(50),
+    @Password varchar(50),
+    @RoleName varchar(50)
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	
+	BEGIN TRAN
+
+	UPDATE [dbo].[Login]
+	SET    [UserName] = @UserName, [Password] = @Password, [RoleName] = @RoleName
+	WHERE  [LoginId] = @LoginId
+	
+	-- Begin Return Select <- do not remove
+	SELECT [LoginId], [UserName], [Password], [RoleName]
+	FROM   [dbo].[Login]
+	WHERE  [LoginId] = @LoginId	
+	-- End Return Select <- do not remove
+
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[MarksDetails]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[MarksDetails]
+As 
+begin
+select
+Sum(Mark) as 'Sum',
+Max(Mark) as 'MaxMark',
+Min(Mark) as 'MinMark',
+Count(Mark) as 'CountOfMarks',
+Avg(Mark)as 'AverageOfMarks'
+from Student
+
+end
+
+GO
+/****** Object:  StoredProcedure [dbo].[SearchBook]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE procedure [dbo].[SearchBook]
+@CourseName varchar(50) null, 
+@BookName varchar(50) null, 
+@DateFrom Date  null, 
+@DateTo Date null
+as 
+select c.CourseName , b.BookName , b.Price , b.PublishDate 
+from Book as b 
+inner join Course as c on b.CourseId = c.CourseId 
+where(@CourseName is null or c.CourseName like '%'+@CourseName+'%')
+and (@BookName is null or b.BookName like '%'+@BookName+'%')
+and (@DateFrom is null  or b.PublishDate >= @DateFrom )
+and (@DateTo is null or  b.PublishDate <= @DateTo)
+GO
+/****** Object:  StoredProcedure [dbo].[SearchCouresByName]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+Create Proc [dbo].[SearchCouresByName]
+@Name varchar(100)
+
+as 
+select * from Course 
+where CourseName like '%'+@Name+ '%'
+GO
+/****** Object:  StoredProcedure [dbo].[SearchValidEmail]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE Proc [dbo].[SearchValidEmail]
+
+as 
+select * from Teacher 
+where Email like '%@%.%'
+GO
+/****** Object:  StoredProcedure [dbo].[sproc_GetLogin]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sproc_GetLogin]
+AS
+SELECT * FROM [Login]
+
+/*DROP PROC dbo.sproc_GetLogin*/
+GO
+/****** Object:  StoredProcedure [dbo].[sproc_GetLoginDetails]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sproc_GetLoginDetails]
+
+(
+	@LoginId int
+)
+
+AS
+SELECT * FROM [Login]
+
+WHERE
+LoginId = @LoginId
+
+
+/*DROP PROC dbo.sproc_GetLoginDetails*/
+GO
+/****** Object:  StoredProcedure [dbo].[StudentCourseDelete]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[StudentCourseDelete] 
+    @StudentCourseId int
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	
+	BEGIN TRAN
+
+	DELETE
+	FROM   [dbo].[StudentCourse]
+	WHERE  [StudentCourseId] = @StudentCourseId
+
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[StudentCourseInsert]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[StudentCourseInsert] 
+    @StudentId int = NULL,
+    @CourseId int = NULL
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	
+	BEGIN TRAN
+	
+	INSERT INTO [dbo].[StudentCourse] ([StudentId], [CourseId])
+	SELECT @StudentId, @CourseId
+	
+	-- Begin Return Select <- do not remove
+	SELECT [StudentCourseId], [StudentId], [CourseId]
+	FROM   [dbo].[StudentCourse]
+	WHERE  [StudentCourseId] = SCOPE_IDENTITY()
+	-- End Return Select <- do not remove
+               
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[StudentCourseSelect]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[StudentCourseSelect] 
+    @StudentCourseId int
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+
+	BEGIN TRAN
+
+	SELECT [StudentCourseId], [StudentId], [CourseId] 
+	FROM   [dbo].[StudentCourse] 
+	WHERE  ([StudentCourseId] = @StudentCourseId OR @StudentCourseId IS NULL) 
+
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[StudentCourseUpdate]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[StudentCourseUpdate] 
+    @StudentCourseId int,
+    @StudentId int = NULL,
+    @CourseId int = NULL
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	
+	BEGIN TRAN
+
+	UPDATE [dbo].[StudentCourse]
+	SET    [StudentId] = @StudentId, [CourseId] = @CourseId
+	WHERE  [StudentCourseId] = @StudentCourseId
+	
+	-- Begin Return Select <- do not remove
+	SELECT [StudentCourseId], [StudentId], [CourseId]
+	FROM   [dbo].[StudentCourse]
+	WHERE  [StudentCourseId] = @StudentCourseId	
+	-- End Return Select <- do not remove
+
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[StudentDelete]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[StudentDelete] 
+    @StudentId int
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	
+	BEGIN TRAN
+
+	DELETE
+	FROM   [dbo].[Student]
+	WHERE  [StudentId] = @StudentId
+
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[StudentInsert]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[StudentInsert] 
+    @FName varchar(50),
+    @LName varchar(50),
+    @BirthDate date = NULL,
+    @Mark float = NULL
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	
+	BEGIN TRAN
+	
+	INSERT INTO [dbo].[Student] ([FName], [LName], [BirthDate], [Mark])
+	SELECT @FName, @LName, @BirthDate, @Mark
+	
+	-- Begin Return Select <- do not remove
+	SELECT [StudentId], [FName], [LName], [BirthDate], [Mark]
+	FROM   [dbo].[Student]
+	WHERE  [StudentId] = SCOPE_IDENTITY()
+	-- End Return Select <- do not remove
+               
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[StudentSelect]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[StudentSelect] 
+    @StudentId int
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+
+	BEGIN TRAN
+
+	SELECT [StudentId], [FName], [LName], [BirthDate], [Mark] 
+	FROM   [dbo].[Student] 
+	WHERE  ([StudentId] = @StudentId OR @StudentId IS NULL) 
+
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[StudentUpdate]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[StudentUpdate] 
+    @StudentId int,
+    @FName varchar(50),
+    @LName varchar(50),
+    @BirthDate date = NULL,
+    @Mark float = NULL
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	
+	BEGIN TRAN
+
+	UPDATE [dbo].[Student]
+	SET    [FName] = @FName, [LName] = @LName, [BirthDate] = @BirthDate, [Mark] = @Mark
+	WHERE  [StudentId] = @StudentId
+	
+	-- Begin Return Select <- do not remove
+	SELECT [StudentId], [FName], [LName], [BirthDate], [Mark]
+	FROM   [dbo].[Student]
+	WHERE  [StudentId] = @StudentId	
+	-- End Return Select <- do not remove
+
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[TeacherCourseDelete]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[TeacherCourseDelete] 
+    @TeacherCourseId int
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	
+	BEGIN TRAN
+
+	DELETE
+	FROM   [dbo].[TeacherCourse]
+	WHERE  [TeacherCourseId] = @TeacherCourseId
+
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[TeacherCourseInsert]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[TeacherCourseInsert] 
+    @TeacherId int = NULL,
+    @CourseId int = NULL
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	
+	BEGIN TRAN
+	
+	INSERT INTO [dbo].[TeacherCourse] ([TeacherId], [CourseId])
+	SELECT @TeacherId, @CourseId
+	
+	-- Begin Return Select <- do not remove
+	SELECT [TeacherCourseId], [TeacherId], [CourseId]
+	FROM   [dbo].[TeacherCourse]
+	WHERE  [TeacherCourseId] = SCOPE_IDENTITY()
+	-- End Return Select <- do not remove
+               
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[TeacherCourseSelect]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[TeacherCourseSelect] 
+    @TeacherCourseId int
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+
+	BEGIN TRAN
+
+	SELECT [TeacherCourseId], [TeacherId], [CourseId] 
+	FROM   [dbo].[TeacherCourse] 
+	WHERE  ([TeacherCourseId] = @TeacherCourseId OR @TeacherCourseId IS NULL) 
+
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[TeacherCourseUpdate]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[TeacherCourseUpdate] 
+    @TeacherCourseId int,
+    @TeacherId int = NULL,
+    @CourseId int = NULL
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	
+	BEGIN TRAN
+
+	UPDATE [dbo].[TeacherCourse]
+	SET    [TeacherId] = @TeacherId, [CourseId] = @CourseId
+	WHERE  [TeacherCourseId] = @TeacherCourseId
+	
+	-- Begin Return Select <- do not remove
+	SELECT [TeacherCourseId], [TeacherId], [CourseId]
+	FROM   [dbo].[TeacherCourse]
+	WHERE  [TeacherCourseId] = @TeacherCourseId	
+	-- End Return Select <- do not remove
+
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[TeacherDelete]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[TeacherDelete] 
+    @TeacherId int
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	
+	BEGIN TRAN
+
+	DELETE
+	FROM   [dbo].[Teacher]
+	WHERE  [TeacherId] = @TeacherId
+
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[TeacherInsert]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[TeacherInsert] 
+    @TeacherName varchar(50),
+    @Email varchar(50),
+    @Salary float = NULL,
+    @PhoneNumber varchar(50) = NULL,
+    @LoginId int = NULL
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	
+	BEGIN TRAN
+	
+	INSERT INTO [dbo].[Teacher] ( [TeacherName], [Email], [Salary], [PhoneNumber], [LoginId])
+	SELECT  @TeacherName, @Email, @Salary, @PhoneNumber, @LoginId
+	
+	
+               
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[TeacherSelect]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[TeacherSelect] 
+    @TeacherId int
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+
+	BEGIN TRAN
+
+	SELECT [TeacherId], [TeacherName], [Email], [Salary], [PhoneNumber], [LoginId] 
+	FROM   [dbo].[Teacher] 
+	WHERE  ([TeacherId] = @TeacherId OR @TeacherId IS NULL) 
+
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[TeacherUpdate]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[TeacherUpdate] 
+    @TeacherId int,
+    @TeacherName varchar(50),
+    @Email varchar(50),
+    @Salary float = NULL,
+    @PhoneNumber varchar(50) = NULL,
+    @LoginId int = NULL
+AS 
+	SET NOCOUNT ON 
+	SET XACT_ABORT ON  
+	
+	BEGIN TRAN
+
+	UPDATE [dbo].[Teacher]
+	SET    [TeacherName] = @TeacherName, [Email] = @Email, [Salary] = @Salary, [PhoneNumber] = @PhoneNumber, [LoginId] = @LoginId
+	WHERE  [TeacherId] = @TeacherId
+	
+	-- Begin Return Select <- do not remove
+	SELECT [TeacherId], [TeacherName], [Email], [Salary], [PhoneNumber], [LoginId]
+	FROM   [dbo].[Teacher]
+	WHERE  [TeacherId] = @TeacherId	
+	-- End Return Select <- do not remove
+
+	COMMIT
+GO
+/****** Object:  StoredProcedure [dbo].[UpdateLogin]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[UpdateLogin]
+(
+	@LoginId int,
+	@UserName nvarchar (MAX),
+	@Password nvarchar (MAX),
+	@RoleName nvarchar (MAX)
+)
+
+AS
+UPDATE [Login] 
+SET 
+UserName = @UserName,
+Password = @Password,
+RoleName = @RoleName
+
+WHERE
+LoginId = @LoginId
+
+
+/*DROP PROC dbo.sproc_UpdateLogin*/
+GO
+/****** Object:  StoredProcedure [dbo].[UpdateStudentCourse]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[UpdateStudentCourse]
+(
+	@StudentCourseId int,
+	@StudentId int,
+	@CourseId int
+)
+
+AS
+UPDATE [StudentCourse] 
+SET 
+StudentId = @StudentId,
+CourseId = @CourseId
+
+WHERE
+StudentCourseId = @StudentCourseId
+
+
+/*DROP PROC dbo.sproc_UpdateStudentCourse*/
+GO
+/****** Object:  StoredProcedure [dbo].[UpdateTeacherCourse]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[UpdateTeacherCourse]
+(
+	@TeacherCourseId int,
+	@TeacherId int,
+	@CourseId int
+)
+
+AS
+UPDATE [TeacherCourse] 
+SET 
+TeacherId = @TeacherId,
+CourseId = @CourseId
+
+WHERE
+TeacherCourseId = @TeacherCourseId
+
+
+/*DROP PROC dbo.sproc_UpdateTeacherCourse*/
+GO
+/****** Object:  StoredProcedure [dbo].[UploadImageToCourse]    Script Date: 11/13/2021 8:37:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+create proc [dbo].[UploadImageToCourse]
+@id int,
+@imagePath varchar(250)
+as
+begin 
+update Course 
+set imagePath = @imagePath
+where CourseId = @id
+
+end
+GO
