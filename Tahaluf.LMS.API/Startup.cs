@@ -69,6 +69,7 @@ namespace Tahaluf.LMS.API
             services.AddScoped<ITeacherCourseRepository, TeacherCourseRepository>();
             services.AddScoped<IJWTRepository, JWTRepository>();
             services.AddScoped<IJWTService, JWTService>();
+            services.AddScoped<ICoursesRepository, CoursesRepository>();
 
             //Services
             services.AddScoped<ICourseService, CourseService>();
@@ -79,6 +80,7 @@ namespace Tahaluf.LMS.API
             services.AddScoped<IStudentCourseServices, StudentCourseServices>();
             services.AddScoped<ITeacherCourseServices, TeacherCourseServices>();
             services.AddScoped<IFileService, FileService>();
+            services.AddScoped<ICoursesServices, CoursesServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
